@@ -2,7 +2,7 @@
 import pandas as pd
 import numpy as np
 from preprocessing import preprocess_img
-from shape_analysis import analysis, plot_hist
+from shape_analysis import analysis
 from folders_operation import mkdir, file_name
 
 # Create folders.
@@ -39,15 +39,3 @@ file_path = original_images[0]
 file_path = 'data/' + file_path[13:21] + '.xlsx'
 writer = pd.ExcelWriter(file_path)
 result.to_excel(writer, index=True, encoding='utf-8', sheet_name='Perimeters')
-
-
-# Integrate perimeters of all triangles in the sample.
-# perimeters_all = list(itertools.chain.from_iterable(perimeters_all))
-#
-# print('\n')
-# print('************ ' + 'sample' + ' ************')
-# print('Perimeters are ')
-# print(perimeters_all)
-# # Plot histogram of the sample.
-# plot_hist(perimeters_all, original_images[0])
-

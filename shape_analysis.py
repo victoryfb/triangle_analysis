@@ -112,14 +112,3 @@ def analysis(shapes, original_img, precessed_img):
 
     return perimeters
 
-
-def plot_hist(data, filename):
-
-    """ Plot the histogram """
-
-    plt.figure()
-    plt.hist(data)
-    plt.xlabel('Perimeter')
-    plt.ylabel('Frequency')
-    hist_name = 'figure/' + filename[13:21] + '.png'
-    plt.savefig(hist_name)
