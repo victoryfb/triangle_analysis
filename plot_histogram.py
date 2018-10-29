@@ -5,24 +5,12 @@ import numpy as np
 import itertools
 
 
-def plot_hist(data, filename, bins=5):
-
-    """ Plot the histogram """
-
-    plt.figure()
-    plt.hist(data, bins=bins)
-    plt.xlabel('Perimeter')
-    plt.ylabel('Frequency')
-    hist_name = 'figure/' + filename[5:-5] + '.png'
-    plt.savefig(hist_name)
-
-
-def integrate_perimeters(perimeters):
+def integrate_perimeters(data):
 
     """ Integrate perimeters of all triangles in the sample. """
 
-    perimeters = list(itertools.chain.from_iterable(perimeters))
-    return perimeters
+    data = list(itertools.chain.from_iterable(data))
+    return data
 
 
 def drop_zero(data):
@@ -36,19 +24,40 @@ def drop_zero(data):
     return data_new
 
 
+def preprocess(data):
+
+    """
+    step1. Replace the non values to zeros.
+    step2. Reshape perimeters from a matrix to a vector.
+    step3. Drop all zeros.
+    """
+
+    data = data.fillna(0)
+    data = np.array(data.loc[:].values)
+    data = integrate_perimeters(data)
+    data = drop_zero(data)
+
+    return data
+
+
+def plot_hist(data, file, bins=5):
+
+    """ Plot the histogram """
+
+    plt.figure()
+    plt.hist(data, bins=bins)
+    plt.xlabel('Perimeter')
+    plt.ylabel('Frequency')
+    hist_name = 'figure/' + file[5:-5] + '.png'
+    plt.savefig(hist_name)
+
+
 # Read perimeters from excel file.
 filename = 'data/sample02.xlsx'
 perimeters = pd.read_excel(filename, index_col=0)
 
-# Replace the non values to zeros.
-perimeters = perimeters.fillna(0)
+# Preprocess perimeters.
+perimeters = preprocess(perimeters)
 
-# Reshape perimeters from a matrix to a vector.
-perimeters = np.array(perimeters.loc[:].values)
-perimeters = integrate_perimeters(perimeters)
-
-# Drop all zeros.
-perimeters = drop_zero(perimeters)
-
-# Plot histogram
+# Plot histogram.
 plot_hist(perimeters, filename, bins=10)
