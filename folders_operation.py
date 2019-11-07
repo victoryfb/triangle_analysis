@@ -17,6 +17,6 @@ def file_name(file_dir):
         folder = str(root) + str(dirs)[:-2] + '/'
         for file in files:
             file_type = file[-4:]
-            if file_type == '.png':
+            if file_type == '.png' or file_type == '.tif':
                 filenames.append(folder+str(file))
     return filenames

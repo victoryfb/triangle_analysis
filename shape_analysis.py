@@ -59,7 +59,8 @@ def analysis(shapes, original_img, precessed_img):
     # edge = cv.Canny(binary, 50, 150)
 
     # Find all contours in the image.
-    out_binary, contours, hierarchy = cv.findContours(binary, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+    # out_binary, contours, hierarchy = cv.findContours(binary, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv.findContours(binary, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
 
     print("Start to detect triangle shape...\n")
 
